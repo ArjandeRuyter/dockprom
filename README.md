@@ -4,7 +4,9 @@ dockprom
 A monitoring solution for Docker hosts and containers with [Prometheus](https://prometheus.io/), [Grafana](http://grafana.org/), [cAdvisor](https://github.com/google/cadvisor),
 [NodeExporter](https://github.com/prometheus/node_exporter) and alerting with [AlertManager](https://github.com/prometheus/alertmanager).
 
-***If you're looking for the Docker Swarm version please go to [stefanprodan/swarmprom](https://github.com/stefanprodan/swarmprom)***
+*** Forked from https://github.com/stefanprodan/dockprom ***
+
+*** Data for Prometheus and Grafana goes in ../data/ ***
 
 ## Install
 
@@ -30,28 +32,11 @@ Containers:
 * Grafana (visualize metrics) `http://<host-ip>:3000`
 * NodeExporter (host metrics collector)
 * cAdvisor (containers metrics collector)
-* Caddy (reverse proxy and basic auth provider for prometheus and alertmanager)
+* Caddy is removed from this fork because a central Nginx reverse proxy is used
 
 ## Setup Grafana
 
-Navigate to `http://<host-ip>:3000` and login with user ***admin*** password ***admin***. You can change the credentials in the compose file or by supplying the `ADMIN_USER` and `ADMIN_PASSWORD` environment variables on compose up. The config file can be added directly in grafana part like this
-```
-grafana:
-  image: grafana/grafana:7.2.0
-  env_file:
-    - config
-
-```
-and the config file format should have this content
-```
-GF_SECURITY_ADMIN_USER=admin
-GF_SECURITY_ADMIN_PASSWORD=changeme
-GF_USERS_ALLOW_SIGN_UP=false
-```
-If you want to change the password, you have to remove this entry, otherwise the change will not take effect
-```
-- grafana_data:/var/lib/grafana
-```
+Navigate to `http://<host-ip>:3000` and login with user ***admin*** password ***admin***. You can change the credentials in the config file. 
 
 Grafana is preconfigured with dashboards and Prometheus as the default data source:
 
